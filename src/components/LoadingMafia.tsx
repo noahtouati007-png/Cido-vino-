@@ -18,16 +18,38 @@ export default function LoadingMafia() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-bg-deep px-8 animate-fade-in">
-      <svg width="120" height="40" viewBox="0 0 180 28" fill="none" className="vine-draw">
-        <path d="M5 14 H175" stroke="#2c2c38" strokeWidth="1" strokeLinecap="round" />
-        <path d="M70 14 Q75 4 85 7 Q80 14 70 14Z" fill="#d4af6a" />
-        <path d="M95 14 Q100 24 110 21 Q105 14 95 14Z" fill="#d4af6a" />
-        <circle cx="90" cy="14" r="3" fill="#d4af6a" style={{ filter: "drop-shadow(0 0 6px rgba(212,175,106,0.7))" }} />
-      </svg>
-      <p className="font-display italic text-xl text-center text-cream max-w-sm leading-relaxed animate-slide-up">
-        {QUOTES[index]}
-      </p>
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-bg-deep px-8 overflow-hidden animate-fade-in">
+      <div className="ambient-glow" />
+      <div className="relative z-10 flex flex-col items-center gap-8">
+        <div className="relative w-16 h-16 flex items-center justify-center">
+          <span className="absolute inset-0 rounded-full border-2 border-gold/20" />
+          <span
+            className="absolute inset-0 rounded-full border-2 border-t-gold border-r-gold/40 border-b-transparent border-l-transparent animate-spin"
+            style={{ animationDuration: "1.1s" }}
+          />
+          <span className="text-3xl" style={{ filter: "drop-shadow(0 0 10px rgba(198,165,88,0.5))" }}>
+            🍷
+          </span>
+        </div>
+
+        <p
+          key={index}
+          className="font-display italic text-xl text-center text-cream max-w-sm leading-relaxed animate-slide-up"
+        >
+          {QUOTES[index]}
+        </p>
+
+        <div className="flex gap-2">
+          {QUOTES.map((_, i) => (
+            <span
+              key={i}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                i === index ? "bg-gold scale-125" : "bg-cream/20"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

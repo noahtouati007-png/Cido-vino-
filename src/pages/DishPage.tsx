@@ -44,6 +44,12 @@ export default function DishPage() {
     navigate("/dish/results", { state: { dish: dish.trim(), filters } });
   };
 
+  const handleDemo = () => {
+    navigate("/dish/results", {
+      state: { dish: "Osso buco à la milanaise", filters: {}, demo: true },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-bg-deep flex flex-col">
       <Header />
@@ -108,6 +114,14 @@ export default function DishPage() {
             Trouver mes vins
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={handleDemo}
+          className="text-center font-mono text-xs uppercase tracking-wide text-text-secondary underline transition-colors duration-300 hover:text-gold-soft"
+        >
+          Voir une démo d'accord mets-vin →
+        </button>
       </main>
     </div>
   );

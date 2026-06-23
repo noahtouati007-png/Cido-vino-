@@ -6,11 +6,13 @@ import ErrorCard from "../components/ErrorCard";
 import OliveBranchDivider from "../components/OliveBranchDivider";
 import RecommendationCard from "../components/RecommendationCard";
 import { recommendWines } from "../services/api";
+import { DEMO_DISH } from "../data/demoDish";
 import type { DishFilters, DishRecommendations } from "../types/wine";
 
 interface LocationState {
   dish: string;
   filters: DishFilters;
+  demo?: boolean;
 }
 
 export default function DishResultsPage() {
@@ -30,6 +32,20 @@ export default function DishResultsPage() {
     let cancelled = false;
     setLoading(true);
     setError(null);
+
+    if (state.demo) {
+      const timer = setTimeout(() => {
+        if (!cancelled) {
+          setResult(DEMO_DISH);
+          setLoading(false);
+        }
+      }, 1200);
+      return () => {
+        cancelled = true;
+        clearTimeout(timer);
+      };
+    }
+
     recommendWines(state.dish, state.filters)
       .then((data) => {
         if (!cancelled) setResult(data);
