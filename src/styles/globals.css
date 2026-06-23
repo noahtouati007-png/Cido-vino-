@@ -2,15 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Palette "dark elegant" 2025 (Linear/Stripe/Apple inspired).
+  Police corps : Inter (remplace Cormorant Garamond) pour un rendu moderne, net,
+  très lisible sur fond sombre. Playfair Display est conservée pour les titres
+  afin de garder une signature éditoriale/premium "vin".
+*/
 :root {
-  --olive-deep: #2d3b1f;
-  --olive-mid: #4a5e2f;
-  --olive-light: #7a9142;
-  --cream: #f0ebd8;
-  --gold: #c9a84c;
-  --rouge: #7a2020;
-  --blanc: #f7f3e8;
-  --charcoal: #1a1a1a;
+  --bg-deep: #0a0a0c;
+  --bg-elevated: #14141a;
+  --bg-elevated-2: #1c1c24;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  --gold: #d4af6a;
+  --gold-soft: #e6c98f;
+  --wine: #9b1c3f;
+  --wine-soft: #c2486a;
+
+  --text-primary: #f5f5f0;
+  --text-secondary: #a3a3ad;
+
+  /* legacy variable names kept for any leftover references */
+  --olive-deep: #0a0a0c;
+  --olive-mid: #14141a;
+  --olive-light: #2c2c38;
+  --cream: #f5f5f0;
+  --rouge: #9b1c3f;
+  --blanc: #f5f5f0;
+  --charcoal: #0a0a0c;
 }
 
 * {
@@ -21,13 +40,15 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--olive-deep);
-  color: var(--cream);
+  background: radial-gradient(ellipse at top, #14141a 0%, #0a0a0c 55%, #060608 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
 }
 
 h1,
@@ -35,18 +56,23 @@ h2,
 h3,
 .font-display {
   font-family: "Playfair Display", serif;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
+/* Glassmorphism utility for cards / headers */
+.glass {
+  background: rgba(20, 20, 26, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Kept for backward compatibility with existing className references.
+   The old repeating-linear-gradient "linen" texture is removed; this is now
+   a neutral no-op so JSX usages don't break visually. */
 .linen-texture {
-  background-image: repeating-linear-gradient(
-    45deg,
-    rgba(240, 235, 216, 0.025) 0px,
-    rgba(240, 235, 216, 0.025) 2px,
-    transparent 2px,
-    transparent 6px
-  );
+  background-image: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -55,27 +81,26 @@ h3,
 
 input,
 textarea {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--olive-light);
-  color: var(--cream);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
   outline: none;
-  font-family: "Playfair Display", serif;
-  padding: 0.5rem 0;
+  font-family: "Inter", sans-serif;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(240, 235, 216, 0.4);
+  color: rgba(245, 245, 240, 0.35);
 }
 
 input:focus,
 textarea:focus {
-  border-bottom-color: var(--gold);
-}
-
-button {
-  border-radius: 0;
+  border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.18);
 }
 
 @keyframes pulse-frame {
@@ -90,13 +115,13 @@ button {
 
 @keyframes flash {
   0% {
-    background-color: rgba(201, 168, 76, 0);
+    background-color: rgba(212, 175, 106, 0);
   }
   30% {
-    background-color: rgba(201, 168, 76, 0.6);
+    background-color: rgba(212, 175, 106, 0.5);
   }
   100% {
-    background-color: rgba(201, 168, 76, 0);
+    background-color: rgba(212, 175, 106, 0);
   }
 }
 
@@ -114,4 +139,33 @@ button {
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
   animation: draw 3s ease-in-out infinite;
+}
+
+/* Micro-animations for the 2025 redesign */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out both;
 }

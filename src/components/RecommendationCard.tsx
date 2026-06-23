@@ -2,7 +2,7 @@ import type { WineRecommendation } from "../types/wine";
 
 export default function RecommendationCard({ rec }: { rec: WineRecommendation }) {
   return (
-    <div className="linen-texture bg-olive-mid border border-olive-light/30 p-6 flex flex-col gap-4">
+    <div className="glass rounded-2xl border border-white/10 shadow-soft p-6 flex flex-col gap-4 transition-all duration-300 hover:shadow-soft-lg">
       <div className="flex items-start gap-4">
         <span className="font-display text-5xl text-gold leading-none">
           {String(rec.rank).padStart(2, "0")}
@@ -17,7 +17,7 @@ export default function RecommendationCard({ rec }: { rec: WineRecommendation })
         {rec.example_bottles.map((b) => (
           <span
             key={b}
-            className="font-mono text-[11px] uppercase tracking-wide px-3 py-1 bg-olive-deep border border-olive-light/40 text-cream/90"
+            className="font-mono text-[11px] uppercase tracking-wide px-3 py-1 rounded-full bg-bg-deep border border-white/10 text-cream/90"
           >
             {b}
           </span>
@@ -26,15 +26,15 @@ export default function RecommendationCard({ rec }: { rec: WineRecommendation })
 
       <p className="font-body text-cream/85">{rec.pairing_reason}</p>
 
-      <blockquote className="border-l-2 border-gold pl-4 font-display italic text-cream/90">
-        “{rec.mafia_quote}”
+      <blockquote className="border-l-2 border-gold pl-4 font-display italic text-cream/90 leading-relaxed">
+        "{rec.mafia_quote}"
       </blockquote>
 
       <div className="flex gap-3">
-        <span className="font-mono text-[11px] px-3 py-1 bg-rouge text-cream">
+        <span className="font-mono text-[11px] px-3 py-1.5 rounded-full bg-wine text-cream">
           {rec.price_range}
         </span>
-        <span className="font-mono text-[11px] px-3 py-1 bg-olive-light text-charcoal">
+        <span className="font-mono text-[11px] px-3 py-1.5 rounded-full bg-bg-elevated-2 border border-white/10 text-cream/80">
           {rec.serving_temp}
         </span>
       </div>

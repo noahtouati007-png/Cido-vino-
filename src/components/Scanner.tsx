@@ -27,7 +27,7 @@ export default function Scanner({ onScan }: Props) {
       {cameraError ? (
         <ErrorCard message={cameraError} />
       ) : (
-        <div className="relative w-full max-w-md aspect-[3/4] bg-charcoal overflow-hidden">
+        <div className="relative w-full max-w-md aspect-[3/4] bg-bg-elevated rounded-2xl overflow-hidden shadow-soft-lg border border-white/10">
           <video ref={videoRef} className="w-full h-full object-cover" muted playsInline />
           <div
             className={`absolute inset-0 ${flash ? "animate-flash" : ""}`}
@@ -39,7 +39,7 @@ export default function Scanner({ onScan }: Props) {
                 (pos, i) => (
                   <div
                     key={i}
-                    className={`absolute ${pos} w-8 h-8 border-olive-light`}
+                    className={`absolute ${pos} w-8 h-8 rounded-sm border-gold`}
                     style={{
                       borderTopWidth: pos.includes("top") ? 3 : 0,
                       borderBottomWidth: pos.includes("bottom") ? 3 : 0,
@@ -73,7 +73,7 @@ export default function Scanner({ onScan }: Props) {
           />
           <button
             type="submit"
-            className="bg-gold text-charcoal font-mono text-sm px-4 py-2 uppercase tracking-wide"
+            className="bg-gold text-bg-deep font-mono text-sm px-5 py-2 rounded-xl uppercase tracking-wide shadow-glow transition-all duration-300 hover:scale-[1.02] hover:shadow-soft-lg"
           >
             Valider
           </button>

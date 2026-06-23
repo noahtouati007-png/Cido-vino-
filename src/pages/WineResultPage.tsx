@@ -93,12 +93,12 @@ export default function WineResultPage() {
   }, [wine]);
 
   return (
-    <div className="min-h-screen bg-olive-deep">
+    <div className="min-h-screen bg-bg-deep">
       <Header />
       <div className="pt-20">
         {loading && <LoadingMafia />}
         {!loading && error && (
-          <div className="px-6">
+          <div className="px-6 pt-8">
             <ErrorCard message={error} />
           </div>
         )}

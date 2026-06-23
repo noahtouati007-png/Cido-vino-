@@ -19,8 +19,10 @@ function Chip<T extends string>({
   return (
     <button
       onClick={onClick}
-      className={`font-mono text-xs uppercase tracking-wide px-3 py-2 border ${
-        active ? "bg-gold text-charcoal border-gold" : "border-olive-light text-cream/70"
+      className={`font-mono text-xs uppercase tracking-wide px-3 py-2 rounded-full border transition-all duration-300 ${
+        active
+          ? "bg-gold text-bg-deep border-gold shadow-glow"
+          : "border-white/15 text-cream/70 hover:border-gold/50 hover:text-cream"
       }`}
     >
       {label}
@@ -43,9 +45,9 @@ export default function DishPage() {
   };
 
   return (
-    <div className="min-h-screen bg-olive-deep flex flex-col">
+    <div className="min-h-screen bg-bg-deep flex flex-col">
       <Header />
-      <main className="flex-1 px-6 pt-24 pb-12 max-w-xl mx-auto w-full flex flex-col gap-8">
+      <main className="flex-1 px-6 pt-24 pb-12 max-w-xl mx-auto w-full flex flex-col gap-8 animate-fade-in">
         <h1 className="font-display text-3xl text-cream text-center">
           Quel plat voulez-vous sublimer ?
         </h1>
@@ -59,7 +61,7 @@ export default function DishPage() {
           />
 
           <div>
-            <p className="font-mono text-xs uppercase tracking-wide text-cream/50 mb-2">Budget</p>
+            <p className="font-mono text-xs uppercase tracking-wide text-text-secondary mb-3">Budget</p>
             <div className="flex flex-wrap gap-2">
               {BUDGETS.map((b) => (
                 <Chip key={b} label={b} active={budget === b} onClick={() => setBudget(budget === b ? undefined : b)} />
@@ -68,7 +70,7 @@ export default function DishPage() {
           </div>
 
           <div>
-            <p className="font-mono text-xs uppercase tracking-wide text-cream/50 mb-2">
+            <p className="font-mono text-xs uppercase tracking-wide text-text-secondary mb-3">
               Type préféré
             </p>
             <div className="flex flex-wrap gap-2">
@@ -84,7 +86,7 @@ export default function DishPage() {
           </div>
 
           <div>
-            <p className="font-mono text-xs uppercase tracking-wide text-cream/50 mb-2">
+            <p className="font-mono text-xs uppercase tracking-wide text-text-secondary mb-3">
               Occasion
             </p>
             <div className="flex flex-wrap gap-2">
@@ -101,7 +103,7 @@ export default function DishPage() {
 
           <button
             type="submit"
-            className="bg-gold text-charcoal font-display text-lg py-4"
+            className="bg-gold text-bg-deep font-display text-lg py-4 rounded-xl shadow-glow transition-all duration-300 hover:scale-[1.02] hover:shadow-soft-lg"
           >
             Trouver mes vins
           </button>
