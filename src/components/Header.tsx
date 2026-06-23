@@ -12,8 +12,8 @@ export default function Header({ transparent = false }: Props) {
       }`}
     >
       <Link to="/" className="flex items-center gap-2 transition-transform duration-300 hover:scale-[1.02]">
-        <span className="font-signature text-2xl tracking-widest text-gold-soft">CIBO</span>
-        <span className="font-signature text-2xl tracking-widest text-cream">VINO</span>
+        <img src="/logo.png" alt="Cibo Vino" className="h-10 w-10 rounded-full shadow-soft" />
+        <span className="font-signature text-xl tracking-widest text-cream hidden sm:inline">CIBO VINO</span>
       </Link>
     </header>
   );
