@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --olive-deep: #2d3b1f;
+  --olive-mid: #4a5e2f;
+  --olive-light: #7a9142;
+  --cream: #f0ebd8;
+  --gold: #c9a84c;
+  --rouge: #7a2020;
+  --blanc: #f7f3e8;
+  --charcoal: #1a1a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--olive-deep);
+  color: var(--cream);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: "Cormorant Garamond", serif;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: "Playfair Display", serif;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.linen-texture {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(240, 235, 216, 0.025) 0px,
+    rgba(240, 235, 216, 0.025) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+input,
+textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--olive-light);
+  color: var(--cream);
+  outline: none;
+  font-family: "Playfair Display", serif;
+  padding: 0.5rem 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(240, 235, 216, 0.4);
+}
+
+input:focus,
+textarea:focus {
+  border-bottom-color: var(--gold);
+}
+
+button {
+  border-radius: 0;
+}
+
+@keyframes pulse-frame {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes flash {
+  0% {
+    background-color: rgba(201, 168, 76, 0);
+  }
+  30% {
+    background-color: rgba(201, 168, 76, 0.6);
+  }
+  100% {
+    background-color: rgba(201, 168, 76, 0);
+  }
+}
+
+.animate-flash {
+  animation: flash 0.4s ease-out;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.vine-draw path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw 3s ease-in-out infinite;
+}

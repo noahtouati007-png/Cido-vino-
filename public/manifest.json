@@ -1,0 +1,16 @@
+{
+  "name": "Cibo Vino",
+  "short_name": "Cibo Vino",
+  "description": "Scanner de vin et accords mets-vins, style mafioso sommelier.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2D3B1F",
+  "theme_color": "#2D3B1F",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
