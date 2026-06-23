@@ -16,7 +16,7 @@ export default function HistoryPage() {
   return (
     <div className="min-h-screen bg-bg-deep flex flex-col">
       <Header />
-      <main className="flex-1 px-6 pt-24 pb-12 max-w-2xl mx-auto w-full flex flex-col gap-4 animate-fade-in">
+      <main className="flex-1 px-6 pt-24 pb-12 max-w-2xl mx-auto w-full flex flex-col gap-4 reveal">
         <h1 className="font-display text-3xl text-cream text-center mb-4">
           Historique des scans
         </h1>

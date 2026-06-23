@@ -12,7 +12,8 @@ export default function Header({ transparent = false }: Props) {
       }`}
     >
       <Link to="/" className="flex items-center gap-2 transition-transform duration-300 hover:scale-[1.02]">
-        <img src="/logo.png" alt="Cibo Vino" style={{ maxHeight: 48 }} />
+        <span className="font-signature text-2xl tracking-widest text-gold-soft">CIBO</span>
+        <span className="font-signature text-2xl tracking-widest text-cream">VINO</span>
       </Link>
     </header>
   );

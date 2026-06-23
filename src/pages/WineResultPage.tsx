@@ -7,6 +7,7 @@ import WineCard from "../components/WineCard";
 import { fetchProductByBarcode } from "../services/openFoodFacts";
 import { describeWine, pairWine } from "../services/api";
 import { useWineHistory } from "../hooks/useWineHistory";
+import { DEMO_WINE, DEMO_BARCODE } from "../data/demoWine";
 import type { WineData } from "../types/wine";
 
 export default function WineResultPage() {
@@ -30,6 +31,13 @@ export default function WineResultPage() {
       setLoading(true);
       setError(null);
       try {
+        if (barcode === DEMO_BARCODE) {
+          await new Promise((r) => setTimeout(r, 900));
+          if (cancelled) return;
+          setImageUrl(undefined);
+          setWine(DEMO_WINE);
+          return;
+        }
         const product = await fetchProductByBarcode(barcode);
         if (cancelled) return;
         setImageUrl(product?.image_url);
@@ -52,7 +60,7 @@ export default function WineResultPage() {
   }, [barcode]);
 
   useEffect(() => {
-    if (wine && !savedRef.current) {
+    if (wine && !savedRef.current && barcode !== DEMO_BARCODE) {
       savedRef.current = true;
       addEntry({
         barcode,
@@ -67,6 +75,13 @@ export default function WineResultPage() {
 
   const handleRevealPairings = useCallback(async () => {
     if (!wine) return;
+    if (barcode === DEMO_BARCODE) {
+      setShowPairings(true);
+      setTimeout(() => {
+        pairingsRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+      return;
+    }
     setPairingsLoading(true);
     try {
       const result = await pairWine(wine.wine_name, wine.type);
@@ -80,7 +95,7 @@ export default function WineResultPage() {
     } finally {
       setPairingsLoading(false);
     }
-  }, [wine]);
+  }, [wine, barcode]);
 
   const handleShare = useCallback(() => {
     if (!wine) return;

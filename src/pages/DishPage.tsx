@@ -47,7 +47,7 @@ export default function DishPage() {
   return (
     <div className="min-h-screen bg-bg-deep flex flex-col">
       <Header />
-      <main className="flex-1 px-6 pt-24 pb-12 max-w-xl mx-auto w-full flex flex-col gap-8 animate-fade-in">
+      <main className="flex-1 px-6 pt-24 pb-12 max-w-xl mx-auto w-full flex flex-col gap-8 reveal">
         <h1 className="font-display text-3xl text-cream text-center">
           Quel plat voulez-vous sublimer ?
         </h1>

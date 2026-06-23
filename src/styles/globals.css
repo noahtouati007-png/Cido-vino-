@@ -3,33 +3,34 @@
 @tailwind utilities;
 
 /*
-  Palette "dark elegant" 2025 (Linear/Stripe/Apple inspired).
-  Police corps : Inter (remplace Cormorant Garamond) pour un rendu moderne, net,
-  très lisible sur fond sombre. Playfair Display est conservée pour les titres
-  afin de garder une signature éditoriale/premium "vin".
+  Palette "kaki de luxe" — vert olive profond et raffiné (pas de noir plat,
+  pas de kaki terne) rehaussé d'un fil d'or. Fraunces (display) + Marcellus
+  (titres signature) + Manrope (corps) pour un rendu éditorial haut de gamme.
 */
 :root {
-  --bg-deep: #0a0a0c;
-  --bg-elevated: #14141a;
-  --bg-elevated-2: #1c1c24;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  --bg-deep: #131b12;
+  --bg-elevated: #1c2819;
+  --bg-elevated-2: #243422;
+  --border-subtle: rgba(232, 226, 200, 0.1);
 
-  --gold: #d4af6a;
-  --gold-soft: #e6c98f;
-  --wine: #9b1c3f;
-  --wine-soft: #c2486a;
+  --olive: #3b4f2c;
+  --olive-soft: #5c7a45;
+  --gold: #c6a558;
+  --gold-soft: #e3cb8f;
+  --wine: #6e1f2e;
+  --wine-soft: #9c3a4b;
 
-  --text-primary: #f5f5f0;
-  --text-secondary: #a3a3ad;
+  --text-primary: #f1ecd8;
+  --text-secondary: #a9b09a;
 
   /* legacy variable names kept for any leftover references */
-  --olive-deep: #0a0a0c;
-  --olive-mid: #14141a;
-  --olive-light: #2c2c38;
-  --cream: #f5f5f0;
-  --rouge: #9b1c3f;
-  --blanc: #f5f5f0;
-  --charcoal: #0a0a0c;
+  --olive-deep: #131b12;
+  --olive-mid: #1c2819;
+  --olive-light: #5c7a45;
+  --cream: #f1ecd8;
+  --rouge: #6e1f2e;
+  --blanc: #f1ecd8;
+  --charcoal: #131b12;
 }
 
 * {
@@ -40,14 +41,14 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(ellipse at top, #14141a 0%, #0a0a0c 55%, #060608 100%);
+  background: radial-gradient(ellipse 120% 80% at 50% -10%, #243422 0%, #1a2417 45%, #0f1610 100%);
   background-attachment: fixed;
   color: var(--text-primary);
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-weight: 400;
 }
 
@@ -55,22 +56,25 @@ h1,
 h2,
 h3,
 .font-display {
-  font-family: "Playfair Display", serif;
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.15;
+}
+
+.font-signature {
+  font-family: "Marcellus", serif;
+  letter-spacing: 0.02em;
 }
 
 /* Glassmorphism utility for cards / headers */
 .glass {
-  background: rgba(20, 20, 26, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(28, 40, 25, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--border-subtle);
 }
 
-/* Kept for backward compatibility with existing className references.
-   The old repeating-linear-gradient "linen" texture is removed; this is now
-   a neutral no-op so JSX usages don't break visually. */
 .linen-texture {
   background-image: none;
 }
@@ -81,26 +85,26 @@ h3,
 
 input,
 textarea {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(241, 236, 216, 0.05);
   border: 1px solid var(--border-subtle);
   border-radius: 0.75rem;
   color: var(--text-primary);
   outline: none;
-  font-family: "Inter", sans-serif;
+  font-family: "Fraunces", serif;
   padding: 0.75rem 1rem;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(245, 245, 240, 0.35);
+  color: rgba(241, 236, 216, 0.35);
 }
 
 input:focus,
 textarea:focus {
   border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.18);
+  background: rgba(241, 236, 216, 0.08);
+  box-shadow: 0 0 0 3px rgba(198, 165, 88, 0.18);
 }
 
 @keyframes pulse-frame {
@@ -115,13 +119,13 @@ textarea:focus {
 
 @keyframes flash {
   0% {
-    background-color: rgba(212, 175, 106, 0);
+    background-color: rgba(198, 165, 88, 0);
   }
   30% {
-    background-color: rgba(212, 175, 106, 0.5);
+    background-color: rgba(198, 165, 88, 0.5);
   }
   100% {
-    background-color: rgba(212, 175, 106, 0);
+    background-color: rgba(198, 165, 88, 0);
   }
 }
 
@@ -141,7 +145,7 @@ textarea:focus {
   animation: draw 3s ease-in-out infinite;
 }
 
-/* Micro-animations for the 2025 redesign */
+/* Micro-animations */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -154,7 +158,7 @@ textarea:focus {
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -163,9 +167,39 @@ textarea:focus {
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out both;
+  animation: fade-in 0.6s ease-out both;
 }
 
 .animate-slide-up {
-  animation: slide-up 0.5s ease-out both;
+  animation: slide-up 0.6s ease-out both;
+}
+
+/* Ambient living background: a slow drifting glow, gives the page motion
+   instead of feeling like a static landing page. */
+@keyframes drift {
+  0% {
+    transform: translate(-5%, -5%) scale(1);
+  }
+  50% {
+    transform: translate(5%, 5%) scale(1.15);
+  }
+  100% {
+    transform: translate(-5%, -5%) scale(1);
+  }
+}
+
+.ambient-glow {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle at 30% 20%, rgba(198, 165, 88, 0.12), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(92, 122, 69, 0.18), transparent 55%);
+  animation: drift 18s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Staggered reveal helper: apply with inline animation-delay */
+.reveal {
+  opacity: 0;
+  animation: slide-up 0.7s ease-out forwards;
 }

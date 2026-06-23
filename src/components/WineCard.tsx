@@ -41,7 +41,7 @@ export default function WineCard({
   const typeColor = TYPE_COLORS[wine.type] ?? "#5b8a72";
 
   return (
-    <div className="flex flex-col gap-8 max-w-2xl mx-auto px-4 pb-16 animate-fade-in">
+    <div className="flex flex-col gap-8 max-w-2xl mx-auto px-4 pb-16 reveal">
       <div className="flex justify-center pt-8">
         {imageUrl ? (
           <img src={imageUrl} alt={wine.wine_name} className="h-52 object-contain drop-shadow-2xl" />
