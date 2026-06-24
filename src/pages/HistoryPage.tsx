@@ -1,6 +1,8 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import { useWineHistory } from "../hooks/useWineHistory";
+import type { WineType } from "../types/wine";
 
 const TYPE_COLORS: Record<string, string> = {
   rouge: "#9b1c3f",
@@ -10,16 +12,58 @@ const TYPE_COLORS: Record<string, string> = {
   fortifié: "#7a5a2c",
 };
 
+const FILTERS: Array<WineType | "tous"> = [
+  "tous",
+  "rouge",
+  "blanc",
+  "rosé",
+  "pétillant",
+  "fortifié",
+];
+
 export default function HistoryPage() {
   const { history, removeEntry, clearHistory } = useWineHistory();
+  const [filter, setFilter] = useState<WineType | "tous">("tous");
+
+  const filtered = useMemo(
+    () => (filter === "tous" ? history : history.filter((e) => e.type === filter)),
+    [history, filter]
+  );
 
   return (
-    <div className="min-h-screen bg-bg-deep flex flex-col">
+    <div className="min-h-screen bg-bg-deep flex flex-col relative overflow-hidden">
+      <div className="ambient-glow" />
       <Header />
-      <main className="flex-1 px-6 pt-24 pb-12 max-w-2xl mx-auto w-full flex flex-col gap-4 reveal">
-        <h1 className="font-display text-3xl text-cream text-center mb-4">
+      <main className="flex-1 px-6 pt-24 pb-12 max-w-2xl mx-auto w-full flex flex-col gap-4 reveal relative z-10">
+        <h1 className="font-display text-3xl text-cream text-center mb-2">
           Historique des scans
         </h1>
+
+        {history.length > 0 && (
+          <div className="flex items-center justify-between gap-3 mb-2">
+            <div className="flex flex-wrap gap-2">
+              {FILTERS.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`font-mono text-[10px] uppercase tracking-wide px-3 py-1.5 rounded-full border transition-all duration-300 ${
+                    filter === f
+                      ? "bg-gold text-bg-deep border-gold"
+                      : "border-white/15 text-cream/60 hover:text-cream"
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+            <Link
+              to="/compare"
+              className="font-mono text-[10px] uppercase tracking-wide text-gold underline whitespace-nowrap shrink-0"
+            >
+              Comparer ⚖️
+            </Link>
+          </div>
+        )}
 
         {history.length === 0 && (
           <p className="font-body italic text-cream/60 text-center">
@@ -27,7 +71,13 @@ export default function HistoryPage() {
           </p>
         )}
 
-        {history.map((entry) => (
+        {history.length > 0 && filtered.length === 0 && (
+          <p className="font-body italic text-cream/60 text-center">
+            Aucun vin {filter} dans ton historique.
+          </p>
+        )}
+
+        {filtered.map((entry) => (
           <div
             key={entry.barcode}
             className="glass rounded-2xl border border-white/10 shadow-soft p-4 flex items-center gap-4 transition-all duration-300 hover:shadow-soft-lg"

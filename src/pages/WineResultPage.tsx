@@ -121,6 +121,7 @@ export default function WineResultPage() {
           <div ref={pairingsRef}>
             <WineCard
               wine={wine}
+              barcode={barcode}
               imageUrl={imageUrl}
               onRevealPairings={handleRevealPairings}
               pairingsLoading={pairingsLoading}

@@ -51,6 +51,17 @@ export interface ScanHistoryEntry {
   wine_data: WineData;
 }
 
+export interface FavoriteEntry {
+  barcode: string;
+  wine_name: string;
+  type: WineType;
+  image_url?: string;
+  added_at: string;
+  wine_data: WineData;
+  user_rating?: number;
+  user_note?: string;
+}
+
 export type Budget = "Abordable" | "Milieu de gamme" | "Premium" | "Sans limite";
 export type PreferredType = "Rouge" | "Blanc" | "Rosé" | "Pétillant" | "Fortifié" | "Pas de préférence";
 export type Occasion = "Quotidien" | "Dîner romantique" | "Repas d'affaires" | "Grande fête";

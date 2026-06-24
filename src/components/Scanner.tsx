@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useScanner } from "../hooks/useScanner";
 import ErrorCard from "./ErrorCard";
+import { scanSuccess } from "../lib/feedback";
 
 interface Props {
   onScan: (barcode: string) => void;
@@ -13,6 +14,7 @@ export default function Scanner({ onScan }: Props) {
   const { videoRef, cameraError } = useScanner({
     onDetected: (barcode) => {
       setFlash(true);
+      scanSuccess();
       setTimeout(() => onScan(barcode), 350);
     },
   });

@@ -1,7 +1,11 @@
-import type { WineData } from "../types/wine";
+import { useRef, useState } from "react";
+import type { FavoriteEntry, WineData } from "../types/wine";
 import OliveBranchDivider from "./OliveBranchDivider";
 import RatingBranches from "./RatingBranches";
 import PairingCard from "./PairingCard";
+import { useFavorites } from "../hooks/useFavorites";
+import { shareElementAsImage } from "../lib/shareCard";
+import { haptic, tap } from "../lib/feedback";
 
 const TYPE_COLORS: Record<string, string> = {
   rouge: "#9b1c3f",
@@ -13,6 +17,7 @@ const TYPE_COLORS: Record<string, string> = {
 
 interface Props {
   wine: WineData;
+  barcode: string;
   imageUrl?: string;
   onRevealPairings: () => void;
   pairingsLoading?: boolean;
@@ -32,6 +37,7 @@ function DefaultBottleSVG() {
 
 export default function WineCard({
   wine,
+  barcode,
   imageUrl,
   onRevealPairings,
   pairingsLoading,
@@ -39,10 +45,57 @@ export default function WineCard({
   onShare,
 }: Props) {
   const typeColor = TYPE_COLORS[wine.type] ?? "#5b8a72";
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [sharing, setSharing] = useState(false);
+  const favorite = isFavorite(barcode);
+
+  const handleFavorite = () => {
+    haptic([15, 30, 15]);
+    const entry: FavoriteEntry = {
+      barcode,
+      wine_name: wine.wine_name,
+      type: wine.type,
+      image_url: imageUrl,
+      added_at: new Date().toISOString(),
+      wine_data: wine,
+    };
+    toggleFavorite(entry);
+  };
+
+  const handleShareImage = async () => {
+    if (!cardRef.current) return;
+    tap();
+    setSharing(true);
+    try {
+      await shareElementAsImage(
+        cardRef.current,
+        `cibo-vino-${wine.wine_name.replace(/\s+/g, "-").toLowerCase()}.png`,
+        `${wine.wine_name} — recommandé par Don Vino 🍷`
+      );
+    } catch {
+      /* annulé ou non supporté */
+    } finally {
+      setSharing(false);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-8 max-w-2xl mx-auto px-4 pb-16 reveal">
-      <div className="flex justify-center pt-8">
+      <div ref={cardRef} className="flex flex-col gap-8 bg-bg-deep">
+      <div className="flex justify-end -mb-4 pt-8">
+        <button
+          onClick={handleFavorite}
+          aria-label={favorite ? "Retirer de ma cave" : "Ajouter à ma cave"}
+          className={`text-3xl leading-none transition-transform duration-300 hover:scale-125 ${
+            favorite ? "text-wine-soft" : "text-cream/30"
+          }`}
+          style={favorite ? { filter: "drop-shadow(0 0 8px rgba(156,58,75,0.6))" } : undefined}
+        >
+          {favorite ? "♥" : "♡"}
+        </button>
+      </div>
+      <div className="flex justify-center">
         {imageUrl ? (
           <img src={imageUrl} alt={wine.wine_name} className="h-52 object-contain drop-shadow-2xl" />
         ) : (
@@ -105,6 +158,11 @@ export default function WineCard({
 
       <p className="font-body italic text-center text-cream/80 leading-relaxed">{wine.pairing_teaser}</p>
 
+      <p className="font-signature text-center text-gold/40 text-xs tracking-[0.3em] uppercase pt-2">
+        Cibo Vino
+      </p>
+      </div>
+
       {!showPairings && (
         <button
           onClick={onRevealPairings}
@@ -123,14 +181,23 @@ export default function WineCard({
         </div>
       )}
 
-      {onShare && (
+      <div className="flex flex-col items-center gap-3 pt-2">
         <button
-          onClick={onShare}
-          className="font-mono text-xs uppercase tracking-wide text-cream/60 underline self-center transition-colors duration-300 hover:text-gold"
+          onClick={handleShareImage}
+          disabled={sharing}
+          className="glass border border-gold/40 text-cream font-mono text-xs uppercase tracking-wide px-5 py-3 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-soft disabled:opacity-60"
         >
-          Partager cette fiche
+          {sharing ? "Création de l'image..." : "📸 Partager en image"}
         </button>
-      )}
+        {onShare && (
+          <button
+            onClick={onShare}
+            className="font-mono text-xs uppercase tracking-wide text-cream/50 underline transition-colors duration-300 hover:text-gold"
+          >
+            Partager le texte
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import DonVinoTip from "../components/DonVinoTip";
 import { useWineHistory } from "../hooks/useWineHistory";
 import { DEMO_BARCODE } from "../data/demoWine";
 
@@ -38,12 +39,25 @@ export default function Home() {
           >
             🍽️ Accorder un plat
           </Link>
-          <Link
-            to={`/wine/${DEMO_BARCODE}`}
-            className="text-center font-mono text-xs uppercase tracking-wide text-text-secondary underline transition-colors duration-300 hover:text-gold-soft"
-          >
-            Voir une démo de fiche vin →
-          </Link>
+          <div className="flex items-center justify-center gap-4">
+            <Link
+              to="/search"
+              className="font-mono text-xs uppercase tracking-wide text-gold-soft underline transition-colors duration-300 hover:text-gold"
+            >
+              Chercher par nom
+            </Link>
+            <span className="text-cream/20">·</span>
+            <Link
+              to={`/wine/${DEMO_BARCODE}`}
+              className="font-mono text-xs uppercase tracking-wide text-text-secondary underline transition-colors duration-300 hover:text-gold-soft"
+            >
+              Voir une démo →
+            </Link>
+          </div>
+        </div>
+
+        <div className="w-full reveal" style={{ animationDelay: "0.3s" }}>
+          <DonVinoTip />
         </div>
 
         {last && (

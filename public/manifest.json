@@ -4,13 +4,24 @@
   "description": "Scanner de vin et accords mets-vins, style mafioso sommelier.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#2D3B1F",
-  "theme_color": "#2D3B1F",
+  "background_color": "#131b12",
+  "theme_color": "#131b12",
   "icons": [
     {
       "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "1254x1254",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
